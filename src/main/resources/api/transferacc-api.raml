@@ -1,0 +1,35 @@
+#%RAML 1.0
+title: TransferAcc API
+
+types:
+  AccountMessage: !include /dataType.raml
+
+/transferaccount:
+  description: Get information about hte processed data 
+  get:
+    headers:
+      Requester-ID:
+        description: Identify the requester
+        type: string
+        required: true
+    queryParameters:
+      type:
+        description: Account Type
+        required: true
+        enum:
+          - personal
+          - business
+      name:
+        description: Name of account holder
+        required: false
+      country:
+        description: Location of the account holder 
+        required: false
+    responses:
+      200:
+        description: On success
+        body:
+          application/json:
+            type: AccountMessage
+            examples:
+              output: !include /example.raml
